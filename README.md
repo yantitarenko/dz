@@ -1,181 +1,137 @@
-1
-Внешний вид модели, скорость и жесткий размер диска для всех ПК стоят менее 500 дол. Вывести: модель, скорость и hd
-
-Решение:
-
+# dз
+Задача 1 Найдите номер модели, скорость и размер жесткого диска для всех ПК стоимостью менее 500 дол. Вывести: model, speed и hd Ссылка: https://sql-ex.ru/learn_exercises.php?LN=1
+```sql
 SELECT model, speed, hd FROM PC WHERE price < 500
-2
-Выступают производители принтеров. Вывести: производитель
-
-Решение:
-
+```
+Задача 2 Найдите производителей принтеров. Вывести: maker Ссылка: https://sql-ex.ru/learn_exercises.php?LN=2 
+```sql
 SELECT maker FROM Product WHERE type = 'Printer' GROUP BY maker
-3
-Внешний вид модели, объем памяти и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол.
-
-Решение:
-
-SELECT model,ram,screen FROM Laptop WHERE price > 1000
-4
-Показать все записи таблицы Принтер для цветных принтеров.
-
-Решение:
-
+```
+Задача 3 Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол. Ссылка: https://sql-ex.ru/learn_exercises.php?LN=3
+```sql
+SELECT model, ram, screen 
+FROM Laptop
+WHERE price>1000
+```
+Задача 4 Найдите все записи таблицы Printer для цветных принтеров.
+```sql 
 SELECT * FROM Printer WHERE color = 'y'
-5
-Видимый номер модели, скорость и жесткий размер диска ПК, характерный 12x или 24x CD и цена менее 600 дол.
-
-Решение:
-
+```
+Задача 5 Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.
+```sql
 SELECT model, speed, hd FROM PC WHERE ( cd = '12x' OR cd = '24x' ) AND price < 600
-6
-Для каждого производителя, выпускающего ПК-блокноты с объемом жесткого диска не менее 10 Гбайт, найти скорость таких ПК-блокнотов. Вывод: производитель, скорость.
-
-Решение:
-
+```
+Задача 6 Для каждого производителя, выпускающего ПК-блокноты c объёмом жесткого диска не менее 10 Гбайт, найти скорости таких ПК-блокнотов. Вывод: производитель, скорость.
+```sql
 SELECT DISTINCT maker, speed FROM laptop JOIN 
 (SELECT * FROM product WHERE type='laptop')
 this_table_1 ON laptop.model = this_table_1.model
 WHERE hd >= 10
-7
-Доступны модели и цены всех доступных в продаже продуктов (любого типа) производителя B (латинская буква).
-
-Решение:
-
+```
+задача 7 Найдите номера моделей и цены всех имеющихся в продаже продуктов (любого типа) производителя B (латинская буква).
+```sql
 SELECT DISTINCT pc.model, price FROM pc JOIN product on pc.model = product.model WHERE maker = 'B'
 UNION 
 SELECT DISTINCT laptop.model, price FROM laptop JOIN product on laptop.model = product.model WHERE maker = 'B'
 UNION
 SELECT DISTINCT printer.model, price FROM printer JOIN product on printer.model = product.model WHERE maker = 'B'
-8
-Представлены производителем, выпускающего ПК, но не ПК-блокноты.
-
-Решение:
-
+```
+Задача 8 Найдите производителя, выпускающего ПК, но не ПК-блокноты.
+```sql
 SELECT maker FROM product WHERE type = 'pc'
 EXCEPT
 SELECT maker FROM product WHERE type = 'laptop'
-9
-Появляются производители ПК с процессором не менее 450 Мгц. Вывести: Создатель
-
-Решение:
-
+```
+Задача 9 Найдите производителей ПК с процессором не менее 450 Мгц. Вывести: Maker
+```sql
 SELECT DISTINCT product.maker FROM product JOIN pc on pc.model = product.model WHERE speed >= 450
-10
-Представленные модели принтеров, принадлежащих к Российской Федерации. Вывести: модель, цена
-
-Решение:
-
+```
+Задача 10 Найдите модели принтеров, имеющих самую высокую цену. Вывести: model, price
+```sql
 SELECT DISTINCT model, price FROM printer
 WHERE price = (SELECT MAX(price) FROM printer)
-11
-Показать высокую скорость ПК.
-
-Решение:
-
+```
+Задача 11 Найдите среднюю скорость ПК.
+```sql
 SELECT AVG(speed) AS Avg_speed FROM pc
-12
-Наблюдается высокая скорость ПК-блокнотов, цена которой превышает 1000 дол.
-
-Решение:
-
+```
+Задача 12 Найдите среднюю скорость ПК-блокнотов, цена которых превышает 1000 дол.
+```sql
 SELECT AVG(speed) AS Avg_speed FROM laptop WHERE price > 1000
-13
-высокая скорость ПК, выпущенных в эфире A.
-
-Решение:
-
+```
+Задача 13 Найдите среднюю скорость ПК, выпущенных производителем A.
+```sql
 SELECT DISTINCT AVG(pc.speed) AS Avg_speed FROM pc JOIN product on pc.model = product.model WHERE maker = 'A'
-14
-Корабли, известные не менее 10 орудий.
-
-Решение:
-
+```
+Задача 14 Найдите класс, имя и страну для кораблей из таблицы Ships, имеющих не менее 10 орудий. 
+```sql
 SELECT s.class, s.name, c.country
 FROM ships s
 JOIN classes c ON s.class = c.class
 WHERE c.numGuns >= 10
-15
-Появляются размеры жестких дисков, совпадающих у двух и более PC. Вывести: HD
-
-Решение:
-
+```
+Задача 15 Найдите размеры жестких дисков, совпадающих у двух и более PC. Вывести: HD 
+```sql
 SELECT hd FROM pc GROUP BY (hd) HAVING COUNT(model) >= 2
-16
-пары моделей ПК, обладающие заметной скоростью и оперативной памятью. В результате каждого пара заболеваний только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером, модель с естественным номером, скорость и RAM.
-
-Решение:
-
+```
+Задача 16 Найдите пары моделей PC, имеющих одинаковые скорость и RAM. В результате каждая пара указывается только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером, модель с меньшим номером, скорость и RAM.
+```sql
 SELECT DISTINCT p1.model, p2.model, p1.speed, p1.ram
 FROM pc p1, pc p2
-WHERE p1.speed = p2.speed AND p1.ram = p2.ram AND p1.model > p2.model
-17
-Появляются модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК. Вывести: тип, модель, скорость
-
-Решение:
-
+WHERE p1.speed = p2.speed AND p1.ram = p2.ram AND p1.model > p2.mode
+```
+Задача 17 Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК. Вывести: type, model, speed
+```sql
 SELECT DISTINCT product.type, laptop.model, laptop.speed
 FROM laptop, product
 WHERE speed < (SELECT MIN(speed) FROM pc)
 AND product.type ='Laptop'
-18
-Появляются производители самых ярких цветных принтеров. Вывести: производитель, цена
-
-Решение:
-
+```
+Задача 18 Найдите производителей самых дешевых цветных принтеров. Вывести: maker, price
+```sql
 SELECT DISTINCT maker, price FROM product JOIN printer ON printer.model = product.model WHERE price = (SELECT MIN(price) FROM printer
 WHERE color='y')
 AND color='y'
-19
-Для каждого производителя, увеличения модели в таблице ноутбуков, найдите увеличенный размер экрана выпускаемых им ПК-блокнотов. Вывести: производитель, средний размер экрана.
-
-Решение:
-
+```
+Задача 19 Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов. Вывести: maker, средний размер экрана.
+```sql
 SELECT maker, AVG(screen)
 FROM product JOIN laptop ON product.model=laptop.model
 GROUP BY maker
-20
-Представленные производители, выпускающие по меньшей мере три различных модели ПК. Вывести: Maker, число моделей ПК.
-
-Решение:
-
+```
+Задача 20 Найдите производителей, выпускающих по меньшей мере три различных модели ПК. Вывести: Maker, число моделей ПК.
+```sql
 SELECT maker as Maker, COUNT(model) as Count_Model
 FROM product
 WHERE type='pc'
 GROUP BY maker
 HAVING COUNT(model)>=3
-21
-Существующая оценка ПК, выпускаемых корпусом, у которого есть модели в таблице PC. Вывести: производитель, максимальное цена.
-
-Решение:
-
+```
+Задча 21
+```sql
 SELECT maker as Maker, MAX(price) as Max_price FROM product
 JOIN pc ON product.model = pc.model
 GROUP BY maker
-22
-Для каждого значения скорости ПК, максимального 600 МГц, характерна скорость ПК с такой же скоростью. Вывести: скорость, средняя цена.
+```
 
-Решение:
-
+Задча 22
+```sql
 SELECT speed as Speed, AVG(price) as Price
 FROM pc WHERE speed > 600
 GROUP BY speed
-23
-Появляются производители, которые производили бы как ПК со скоростью не менее 750 МГц, так и ПК-блоки со скоростью не менее 750 МГц. Вывести: Создатель
+```
 
-Решение:
-
+Задча 23
+```sql
 SELECT DISTINCT maker
 FROM product JOIN pc ON product.model=pc.model
 WHERE speed>=750 AND maker IN
 (SELECT maker
 FROM product JOIN laptop ON product.model=laptop.model
 WHERE speed>=750)
-24
-Перечислите номера моделей любых типов, особенно высокую цену по всей базе данных продукции.
-
-Решение:
-
+```
+Задча 24
+```sql
 SELECT model 
 FROM (
  SELECT model, price FROM pc
@@ -194,11 +150,9 @@ FROM (
   SELECT price FROM Printer
   ) table2
  )
-25
-Появляются производители принтеров, которые обнаруживают ПК с наименьшим объемом ОЗУ и с самым быстрым процессором среди всех ПК, проявляют наименьший объем ОЗУ. Вывести: Создатель
-
-Решение:
-
+```
+Задча 25
+```sql
 SELECT DISTINCT maker FROM product
 WHERE model IN (
 SELECT model FROM pc
@@ -220,22 +174,18 @@ SELECT maker
 FROM product
 WHERE type='printer'
 )
-26
-Появилась оценка ПК и ПК-блокнотов, выпущенных из огнестрельного оружия A (латинская буква). Вывести: одна общая средняя цена.
-
-Решение:
-
+```
+Задча 26
+```sql
 SELECT AVG(price) AS AVG_price FROM (SELECT model, price FROM PC
 UNION ALL
 SELECT model, price FROM Laptop) AS price
 INNER JOIN product
 ON price.model = product.model
 WHERE maker = 'A'
-27:
-Появляется средний размер диска ПК каждого из тех производителей, которые выпускают и печатают. Вывести: производитель, средний размер HD.
-
-Решение:
-
+```
+Задча 27
+```sql
 SELECT maker as Maker, AVG(hd) as AVG
 FROM product JOIN pc ON product.model=pc.model
 WHERE maker IN (
@@ -244,179 +194,145 @@ FROM product
 WHERE type='printer'
 )
 GROUP BY maker
-28:
-Таблицу Таблицы Продукта, определяющую количество производителей, выпускающих по одной модели.
-
-Решение:
-
+```
+Задча 28
+```sql
 SELECT COUNT(maker) as Quantity FROM 
 (
 SELECT maker FROM product GROUP BY maker HAVING COUNT(*) = 1
 ) this_table
-29
-В предположении, что приход и расход средств на каждый прием на прием не чаще одного раза в день [т.е. первичный ключ (пункт, дата)], написать запрос с выходными данными (пункт, дата, приход, расход). Используйте таблицы Income_o и Outcome_o.
-
-Решение:
-
+```
+Задча 29
+```sql
 SELECT income_o.point, income_o.[date], inc, out FROM income_o LEFT JOIN outcome_o ON outcome_o.point = income_o.point
 AND outcome_o.[date]=income_o.[date]
 UNION
 SELECT outcome_o.point, outcome_o.[date], inc, out FROM income_o RIGHT JOIN outcome_o ON
 outcome_o.point = income_o.point AND outcome_o.[date] = income_o.[date]
-30
-В предпосылке размещения, что приход и расход средств на каждый захват фиксируется число раз (первичным ключом в таблице является столбец кода), требуется получить таблицу, в которой каждый пункту за каждую возможность выполнения операций будет соответствовать одна строка. Вывод: точка, дата, совокупный расход доходов за день (исходящий), совокупный приход доходов за день (вкл.). Отсутствующие значения считаются неопределенными (NULL).
+```
 
-Решение:
-
+Задча 30
+```sql
 SELECT point, [date], SUM(outs), SUM(incs) FROM
 (SELECT point, [date], SUM(out) outs, null incs FROM outcome GROUP BY point, [date]
 UNION
 SELECT point, [date], null, SUM(inc) incs FROM income GROUP BY point, [date]) this_table GROUP BY point, [date]
-31
-Для классов кораблей, калибр орудий охватывает не менее 16 дюймов, охватывая класс и страну.
-
-Решение:
-
+```
+Задча 31
+```sql
 SELECT class, country
 FROM classes
 WHERE bore>=16
-32
-Одной из характеристик корабля является половина куба калибра его главных орудий (mw). С точностью до 2-х десятков знаков имеет среднее значение mw для кораблей каждой страны, у которых есть корабли в базе данных.
-
-Решение:
-
+```
+Задча 32
+```sql
 SELECT country, cast(avg(bore*bore*bore/2) as numeric(38,2)) FROM
 (SELECT country, name, bore FROM ships sh JOIN classes c ON sh.class=c.class
 union
 SELECT country, ship, bore FROM outcomes o JOIN classes c ON o.ship = c.class) t1
 GROUP BY country
-33
-Укажите корабли, затопленные в очагах в Северной Атлантике (Северная Атлантика). Вывод: корабль.
-
-Решение:
-
+```
+Задча 33
+```sql
 SELECT ship
 FROM Outcomes
 WHERE battle = 'North Atlantic' AND result = 'sunk'
-34
-По Вашингтонскому международному договору от начала 1922 г. запрещает строить линейные корабли водоизмещением более 35 тыс.тонн. Укажите корабли, нарушившие этот договор. Вывести название кораблей.
-
-Решение:
-
+```
+Задча 34
+```sql
 SELECT name FROM classes, ships WHERE launched >=1922 AND displacement>35000 AND type='bb' AND
 ships.class = classes.class
-35
-[В таблице Product найти модели, которые состоят только из цифр или только из латинских букв (AZ, без учета регистра). Вывод: номер модели, тип модели.] ( https://sql-ex.ru/learn_exercises.php?LN=35 )
+```
+Задча 35
+```sql
+select model, type
+from Product pro
+where 
+(model not like '%[^0-9]%') 
+or 
+(upper(model) not like '%[^A-Z]%')
+```
+Задча 36
+```sql
+select Distinct c.class 
+from Ships s
+inner join Classes c on s.class = c.class
+where s.class = s.name
+union 
+select ship 
+from Outcomes o
+where o.ship in (select class from Classes c)
+```
+Задча 37
+```sql
+select c.class
+from Classes c inner join (
+select s.class, s.name from Ships s
+union 
+select o.ship, o.ship from Outcomes o 
+)t1 on t1.class = c.class
+group by c.class
+having count(t1.name) = 1
+```
+Задча 38
+```sql
+(src = https://sql-ex.ru/learn_exercises.php?LN=38)
 
-Решение:
+select distinct country 
+from Classes cl
+where type = 'bc' and country in (select country from Classes cl where type = 'bb')
+```
+Задча 39
+```sql
+select distinct o.ship
+from Outcomes o, Battles b
+where b.name = o.battle
+and o.result = 'damaged'
+and exists (select bb.date from Battles bb, Outcomes oo
+            where bb.name = oo.battle 
+            and bb.date > b.date and o.ship = oo.ship)
+```
+Задча 40
+```sql
+(src = https://sql-ex.ru/learn_exercises.php?LN=40)
 
-SELECT model, type
-FROM product
-WHERE upper(model) NOT like '%[^A-Z]%'
-OR model not like '%[^0-9]%'
-36
-Перечислите название головных кораблей, имеющихся в базе данных (учесть кораблей в Outcomes).
+select maker, min(type) as type
+from Product p
+group by maker
+having count(distinct type) = 1 and count(model) > 1
+```
 
-Решение:
-
-SELECT DISTINCT name as Name FROM (
-SELECT name FROM ships
-UNION
-SELECT ship FROM outcomes
-) t1
-WHERE name IN (SELECT class FROM classes)
-37
-Представленные классы входят только в один корпус из данных (ученость также судов в Outcomes).
-
-Решение:
-
-SELECT c.class FROM Classes c
-LEFT JOIN (Select class, name FROM Ships
-UNION
-SELECT Classes.class as class, Outcomes.ship as name FROM Outcomes
-JOIN Classes ON Outcomes.ship = Classes.class) as s On c.class = s.class
-GROUP BY c.class
-HAVING COUNT(s.name)=1
-38
-Появившиеся страны, имевшие когда-либо классы обычных кораблей ('bb') и имевшие когда-либо классы крейсеров ('bc').
-
-Решение:
-
-SELECT DISTINCT country as COUNTRY
-FROM classes
-WHERE type='bb' AND country IN
-(
-SELECT country
-FROM classes
-WHERE type = 'bc'
-)
-39
-Появляются корабли, сохранившиеся для будущих сражений; т.е. выведенные из строения в одной битве (повреждены), они участвовали в другой, произошедшей позже.
-
-Решение:
-
-SELECT DISTINCT ship
-FROM outcomes o1
-LEFT JOIN Battles b1 ON b1.name = o1.battle
-WHERE result = 'damaged'
-and ship IN(
-SELECT ship
-FROM outcomes o2
-LEFT JOIN Battles b2 ON b2.name = o2.battle
-WHERE o2.ship=o1.ship
-AND b2.date > b1.date
-)
-40
-Изобретатели, которые выпускают более одной модели, при этом являются все выпускаемыми моделями продуктов одного типа. Вывести: производитель, тип
-
-Решение:
-
-SELECT maker, MAX(type) as Type
-FROM product
-GROUP BY maker
-HAVING COUNT(DISTINCT type) = 1 AND COUNT(model) > 1
-41
-Для каждого производителя, у которых есть модели, составляющие хотя бы одну из таблиц ПК, портативных компьютеров или принтеров, определяется доля населения в его продукции. Вывод: имя производителя, если среди производителей этого производителя встречается NULL, то выводит для производителя NULL, иначе встречается ситуация.
-
-Решение:
-
-with D as
-(SELECT model, price FROM pc
-UNION
-SELECT model, price FROM Laptop
-UNION
-SELECT model, price FROM Printer)
-SELECT DISTINCT P.maker,
-CASE WHEN MAX(CASE WHEN D.price IS NULL THEN 1 ELSE 0 END) = 0 THEN
-MAX(D.price) END
-FROM Product P
-RIGHT JOIN D ON P.model=D.model
-GROUP BY P.maker
-42
-Появляются названия кораблей, потопленных в исключительных случаях, и названия, в которых они были потоплены.
-
-Решение:
+Задча 41
+```sql
+select q1.maker, case when sum(q1.price) > 0 then max(q1.price) else Null end
+from ( 
+select p.maker, iif(price is null, -1000000, price) price
+from Product p inner join PC pc on pc.model = p.model
+union
+select maker, iif(price is null, -1000000, price) price
+from Product p inner join Printer pr on pr.model = p.model
+union 
+select maker, iif(price is null, -1000000, price) price
+from Product p inner join Laptop l on l.model = p.model
+)q1
+group by q1.maker
+```
+Задча 42
+```sql
+(src = https://sql-ex.ru/learn_exercises.php?LN=42)
 
 SELECT ship, battle
-FROM outcomes
-WHERE result='sunk'
-43
-Укажите отклонения, которые произошли в годы, не совпадающие ни с одним из множества исходов на воду.
-
-Решение:
-
-SELECT name 
-FROM battles 
-WHERE DATEPART(yy, date) NOT IN 
-(
-SELECT DATEPART(yy, date)
-FROM battles
-JOIN ships ON DATEPART(yy, date)=launched)
-44
-Появляются названия всех кораблей в базе данных, начинаются с буквами R.
-
-Решение:
-
+FROM Outcomes o
+WHERE result = 'sunk'
+```
+Задча 43
+```sql
+SELECT b.name
+FROM Battles b
+WHERE year(date) not in (select launched from Ships s where launched is not null)
+```
+Задча 44
+```sql
 SELECT *
 FROM
 (
@@ -427,34 +343,27 @@ SELECT ship
 FROM outcomes
 ) a
 WHERE name LIKE 'R%'
-45
-Появляются названия всех кораблей в базе данных, состоящие из трех и более слов (например, King George V). Считать, что слова в названиях уменьшены единичными пробелами, и нет концевых пробелов.
+```
+Задча 45
+```sql
+select q1.name
+from (
+select name as name from Ships where name like '% % %'
+union 
+select ship as name from Outcomes where ship like '% % %'
+)q1
+```
+Задча 46
+```sql
+(src = https://sql-ex.ru/learn_exercises.php?LN=46)
 
-Решение:
-
-SELECT *
-FROM
-(
-SELECT name
-FROM ships
-UNION
-SELECT ship
-FROM outcomes
-) a
-WHERE name LIKE '% % %'
-46
-Для каждого корабля, участвовавшего в сражении на Гвадалканале (Гуадалканал), выдать название, водоизмещение и число орудий.
-
-Решение:
-
-SELECT DISTINCT ship, displacement, numguns
-FROM classes LEFT JOIN ships ON classes.class=ships.class RIGHT JOIN outcomes ON classes.class=ship OR ships.name=ship
-WHERE battle='Guadalcanal'
-47
-Определить страны, которые были потеряны в выборке всех своих кораблей.
-
-Решение:
-
+select distinct ship, displacement, numguns
+from Classes c inner join Ships s on s.class = c.class
+right join Outcomes o on o.ship = s.name or o.ship = c.class
+where o.battle = 'Guadalcanal'
+```
+Задча 47
+```sql
 WITH out AS (SELECT *
 FROM outcomes JOIN (SELECT ships.name s_name, classes.class s_class, classes.country s_country
 FROM ships FULL JOIN classes
@@ -488,39 +397,31 @@ SELECT out.s_country, COUNT(out.ship) AS num_ships
 FROM out
 WHERE out.result='sunk'
 GROUP BY out.s_country) fin
-48
-Один корабль был потоплен в сражении.
-
-Решение:
-
+```
+Задча 48
+```sql
 SELECT class
 FROM classes t1 LEFT JOIN outcomes t2 ON t1.class=t2.ship WHERE result='sunk'
 UNION
 SELECT class
 FROM ships LEFT JOIN outcomes ON ships.name=outcomes.ship WHERE result='sunk'
-49
-Судя по названию корабля с ожидаемым калибром 16 дюймов (ученость кораблей из таблицы Outcomes).
-
-Решение:
-
+```
+Задча 49
+```sql
 SELECT s.name 
 FROM ships s 
 JOIN classes c ON s.name=c.class OR s.class = c.class WHERE c.bore = 16
 UNION
 SELECT o.ship FROM outcomes o JOIN classes c ON o.ship=c.class WHERE c.bore = 16
-50
-Из таблицы Ships.
-
-Решение:
-
+```
+Задча 50
+```sql
 SELECT DISTINCT o.battle
 FROM ships s 
 JOIN outcomes o ON s.name = o.ship WHERE s.class = 'kongo'
-51
-Появляется название кораблей, известных среди всех кораблей такого же водоизмещения (ученость кораблей из таблицы Outcomes).
-
-Решение:
-
+```
+Задча 51
+```sql
 SELECT NAME 
 FROM
 (
@@ -542,27 +443,21 @@ SELECT displacement, numguns
 FROM outcomes 
 INNER JOIN classes ON outcomes.ship= classes.class) as f 
 GROUP BY displacement) as d2 ON d1.displacement=d2.displacement AND d1.numguns =d2.numguns
-52
-Определить название всех кораблей из таблицы Корабли, которые составляют линейку японских кораблей, значительное число главных орудий не менее девяти, калибр орудий менее 19 дюймов и водоизмещение не более 65 тыс.тонн
-
-Решение:
-
-SELECT s.name as NAME
-FROM ships s 
-JOIN classes c ON s.class = c.class WHERE country = 'japan' AND (numGuns >= '9' OR numGuns is null) AND (bore < '19' or bore is null) AND (displacement <= '65000' OR displacement is null) AND type='bb'
-53
-Определите среднее число орудий для классов линейных кораблей. Получить результат с отличием до 2-х десятичных знаков.
-
-Решение:
-
+```
+Задча 52
+```sql
 SELECT CAST(AVG(numguns*1.0) AS NUMERIC(6,2)) AS Avg_nmg 
 FROM classes 
 WHERE type = 'bb'
-54
-С точностью до 2-х десятикратных знаков определяется среднее число орудий всех линейных кораблей (ученость кораблей из таблицы Outcomes).
-
-Решение:
-
+```
+Задча 53
+```sql
+SELECT CAST(AVG(numguns*1.0) AS NUMERIC(6,2)) AS Avg_nmg 
+FROM classes 
+WHERE type = 'bb'
+```
+Задча 54
+```sql
 SELECT CAST(AVG(numguns*1.0) AS NUMERIC(6,2)) as AVG_nmg 
 FROM (SELECT ship, numguns, type FROM Outcomes 
 JOIN classes ON ship = class
@@ -571,20 +466,16 @@ SELECT name, numguns, type
 FROM ships s 
 JOIN classes c ON c.class = s.class) as x 
 WHERE type = 'bb'
-55
-Для каждого класса характерный год, когда была запрещена вода первого корабля этого класса. Этот год относится к водным кораблям неизвестен. Вывести: класс, год.
-
-Решение:
-
+```
+Задча 55
+```sql
 SELECT c.class, min(s.launched) 
 FROM classes c 
 LEFT JOIN ships s ON c.class = s.class 
 GROUP BY c.class
-56
-Для каждого класса характерных особей класса, потопляемых в этом отделе. Вывести: класс и число затопленных кораблей.
-
-Решение:
-
+```
+Задча 56
+```sql
 SELECT c.class, COUNT(s.ship)
 FROM classes c
 LEFT JOIN (SELECT o.ship, sh.class
@@ -592,11 +483,9 @@ FROM outcomes o
 LEFT JOIN ships sh ON sh.name = o.ship
 WHERE o.result = 'sunk') AS s ON s.class = c.class OR s.ship = c.class
 GROUP BY c.class
-57
-Для классов, уникальных видов в виде потопленных кораблей и не менее 3 кораблей в базе данных, получается имя класса и число потопленных кораблей.
-
-Решение:
-
+```
+Задча 57
+```sql
 SELECT class, COUNT(ship) count_sunked
 FROM (SELECT name, class FROM ships
       UNION
@@ -604,11 +493,9 @@ FROM (SELECT name, class FROM ships
 LEFT JOIN outcomes ON name = ship AND result = 'sunk'
 GROUP BY class
 HAVING COUNT(ship) > 0 AND COUNT(*) > 2;
-58
-Для каждого типа продукции и каждого производителя из таблицы Product c тщательностью до двух десятичных знаков относятся к числу представителей данного типа, принадлежащих к общему числу производителей. Вывод: производитель, тип, процентное отношение числа моделей данного типа к представителям моделей производителей
-
-Решение:
-
+```
+Задча 58
+```sql
 SELECT m, t,
 CAST(100.0*cc/cc1 AS NUMERIC(5,2))
 FROM
@@ -625,11 +512,9 @@ GROUP BY m, t) tt1
 JOIN (
 SELECT maker, count(*) cc1 FROM product GROUP BY maker
 ) tt2
-59
-По подсчетам запасов денежных средств на каждый счет в отношении данных с отчетностью не чаще одного раза в день. Вывод: пункт, конец.
-
-Решение:
-
+```
+Задча 59
+```sql
 SELECT c1, c2-
 (CASE
 WHEN o2 is null THEN 0
@@ -642,11 +527,9 @@ LEFT JOIN
 (SELECT point o1, sum(out) o2 FROM outcome_o
 GROUP BY point) as t2
 ON c1=o1
-60
-По подсчетам денежных средств на начало дня 15 апреля 2001 г. на каждый прием для базы данных с отчетностью не чаще одного раза в день. Вывод: пункт, конец. Замечание. Не сомневаюсь, что информации об отсутствии досрочного погашения не будет.
-
-Решение:
-
+```
+Задча 60
+```sql
 SELECT c1, c2-
 (CASE
 WHEN o2 is null THEN 0
@@ -661,11 +544,9 @@ LEFT JOIN
 WHERE date<'2001-04-15'
 GROUP BY point) as t2
 ON c1=o1
-61
-По подсчету остатка денежных средств на всех поступлениях для получения данных с отчетом не чаще одного раза в день.
-
-Решение:
-
+```
+Задча 61
+```sql
 SELECT sum(i) FROM
 (SELECT point, SUM(inc) as i FROM
 income_o
@@ -676,31 +557,24 @@ SELECT point, -sum(out) as i FROM
 outcome_o
 GROUP BY point
 ) as t
-62
-По подсчетам денежных средств на все поступления на день 15/04/01 для начала базы данных с отчетностью не чаще одного раза в день.
-
-Решение:
-
-SELECT
+```
+Задча 62
+```sql
 (SELECT sum(inc) FROM Income_o WHERE date<'2001-04-15')
 -
 (SELECT sum(out) FROM Outcome_o WHERE date<'2001-04-15')
 AS remain
-63
-Определить имена разных пассажиров, когда-либо летевших на одном и том же месте более одного раза.
-
-Решение:
-
+```
+Задча 63
+```sql
 SELECT name FROM Passenger
 WHERE ID_psg in
 (SELECT ID_psg FROM Pass_in_trip
 GROUP BY place, ID_psg
 HAVING count(*)>1)
-64
-Расчет таблицы доходов и результатов, для каждого поступления поступления определить дни, когда был приход, но не было расхода и наоборот. Вывод: пункт, дата, тип операции (ввод/вывод), денежная сумма за день.
-
-Решение:
-
+```
+Задча 64
+```sql
 SELECT i1.point, i1.date, 'inc', sum(inc) FROM Income,
 (SELECT point, date FROM Income
 EXCEPT
@@ -720,40 +594,16 @@ JOIN Outcome ON (Income.point=Outcome.point) AND
 ) AS o1
 WHERE o1.point=Outcome.point AND o1.date=Outcome.date
 GROUP BY o1.point, o1.date
-65
-[Пронумеровать отдельные пары {maker, type} из продукта, упорядочив их советом:
-
-имя производителя (мейкера) по возрасту;
-Товар (тип) в порядке тип ПК, Ноутбук, Принтер. Если некий производитель выпускает несколько типов продукции, то выводит его имя только в первом раунде; остальные строки для ЭТОГО должны быть заполнены пустой строкой символов ('').]( https://sql-ex.ru/learn_exercises.php?LN=65 )
-Решение:
-
-SELECT row_number() over(ORDER BY maker,s),t, type FROM
-(SELECT maker,type,
-CASE
-WHEN type='PC'
-THEN 0
-WHEN type='Laptop'
-THEN 1
-ELSE 2
-END AS s,
-CASE
-WHEN type='Laptop' AND (maker in (SELECT maker FROM Product WHERE
-type='PC'))
-THEN ''
-WHEN type='Printer' AND ((maker in (SELECT maker FROM Product WHERE
-type='PC')) OR (maker in (SELECT maker FROM Product WHERE
-type='Laptop')))
-THEN ''
-ELSE maker
-END AS t
-FROM Product
-GROUP BY maker,type) AS t1
-ORDER BY maker, s
-66
-Для всех дней в интервале с 04.01.2003 по 04.07.2003 определить число рейсов из Ростова. Вывод: дата, количество рейсов
-
-Решение:
-
+```
+Задча 65
+```sql
+Select row_number() over(order by maker, ans) c1, 
+case when maker = lag(maker) over(order by maker) then ''
+else maker end c2, type
+from (select distinct maker, type, case when type = 'pc' then 1 when type = 'Laptop' then 2 when type = 'printer' then 3 end ans from product)t1 
+```
+Задча 66
+```sql
 SELECT date, max(c) FROM
 (SELECT date,count(*) AS c FROM Trip,
 (SELECT trip_no,date FROM Pass_in_trip WHERE date>='2003-04-01' AND date<='2003-04-07' GROUP BY trip_no, date) AS t1
@@ -774,118 +624,90 @@ SELECT '2003-04-06',0
 UNION ALL
 SELECT '2003-04-07',0) AS t2
 GROUP BY date
-67
-[Найти количество маршрутов, которые обслуживаются большим числом рейсов. Замечания.
-
-A - B и B - A считаются РАЗНЫМИ маршрутами.
-Использовать только таблицу Trip]( https://sql-ex.ru/learn_exercises.php?LN=67 )
-Решение:
-
-SELECT count(*) FROM
-(SELECT TOP 1 WITH TIES count(*) c, town_from, town_to FROM trip
-GROUP BY town_from, town_to
-ORDER BY c desc) as t
-68
-[Найти количество маршрутов, которые обслуживаются большим числом рейсов. Замечания.
-
-A - B и B - A считать ОДНИМ И ТЕМ ЖЕ маршрутом.
-Использовать только таблицу Trip]( https://sql-ex.ru/learn_exercises.php?LN=68 )
-Решение:
-
-SELECT count(*) as Count FROM (
-SELECT TOP 1 WITH TIES sum(c) cc, c1, c2 FROM (
-SELECT count(*) c, town_from c1, town_to c2 FROM trip
-WHERE town_from>=town_to
-GROUP BY town_from, town_to
-UNION ALL
-SELECT count(*) c,town_to, town_from FROM trip
-WHERE town_to>town_from
-GROUP BY town_from, town_to
+```
+Задча 67
+```sql
+select count(*) from
+(SELECT TOP 1 WITH TIES count(*) c, town_from, town_to from trip
+group by town_from, town_to
+order by c desc) as t
+```
+Задча 68
+```sql
+select count(*) from (
+select TOP 1 WITH TIES sum(c) cc, c1, c2 from (
+SELECT count(*) c, town_from c1, town_to c2 from trip
+where town_from>=town_to
+group by town_from, town_to
+union all
+SELECT count(*) c,town_to, town_from from trip
+where town_to>town_from
+group by town_from, town_to
 ) as t
-GROUP BY c1,c2
-ORDER BY cc DESC
+group by c1,c2
+order by cc desc
 ) as tt
-69
-По таблице Income and Outcome для каждого приема найти остатки денежных средств на конец каждого дня, в котором выполнялись операции по приходу и/или расходу на случай сбора. Учесть при этом, что деньги не изымаются, а остатки/задолженность переходят на следующий день. Вывод: пункт приема, день в формате "дд/мм/гггг", остатки/задолженность на конец этого дня.
-
-Решение:
-
-with q as (
-  SELECT
-    isnull(i.point, o.point) point
-    , isnull(i.date, o.date) date
-    , coalesce(sum(i.inc), 0) - coalesce(sum(o.out), 0) balance
-    FROM income i
-    FULL JOIN outcome o
-      ON i.point=o.point AND i.date=o.date AND i.code=o.code
-    GROUP BY isnull(i.point, o.point), isnull(i.date, o.date)
+```
+Задча 69
+```sql
+with t as
+(
+  select point, "date", inc, 0 AS "out" from income
+  union all
+  select point, "date", 0 AS inc, "out" from outcome
 )
- SELECT
-  point
-    -- 103 means format "dd/mm/yyyy"
-  , convert(varchar, date, 103) day
-  , sum(balance) over(partition by point order by date RANGE UNBOUNDED PRECEDING) as rem
-  FROM q
-ORDER BY point,date
-70
-Укажите количество случаев, в которых участвовало меньшее количество кораблей одной и той же страны.
-
-Решение:
-
+SELECT t.point, TO_CHAR ( t."date", 'DD/MM/YYYY') AS day,
+ ( select SUM(i.inc) from t i
+   where i."date" <= t."date" and i.point = t.point )
+-
+( select SUM(i."out") from t i
+  where i."date" <= t."date" and i.point = t.point ) AS rem
+from t
+group by t.point, t."date"
+```
+Задча 70
+```sql
 SELECT DISTINCT o.battle
 FROM outcomes o
 LEFT JOIN ships s ON s.name = o.ship
 LEFT JOIN classes c ON o.ship = c.class OR s.class = c.class
 WHERE c.country IS NOT NULL
 GROUP BY c.country, o.battle
-HAVING COUNT(o.ship) >= 3
-71
-Найти техпроизводителей ПК, все модели ПК присутствуют в таблице PC.
-
-Решение:
-
+HAVING COUNT(o.ship) >= 3;
+```
+Задча 71
+```sql
 SELECT p.maker
 FROM product p
 LEFT JOIN pc ON pc.model = p.model
 WHERE p.type = 'PC'
 GROUP BY p.maker
 HAVING COUNT(p.model) = COUNT(pc.model)
-72
-Среди тех, кто пользуется услугами только какой-нибудь одной компании, определяют имена разных пассажиров, летающих чаще других. Вывести: имя пассажира и число полетов.
+```
+Задча 72
+```sql
+SELECT p.maker
+FROM product p
+LEFT JOIN pc ON pc.model = p.model
+WHERE p.type = 'PC'
+GROUP BY p.maker
+HAVING COUNT(p.model) = COUNT(pc.model)
 
-Решение:
-
-SELECT TOP 1 WITH TIES name, c3 FROM passenger
-JOIN
-(SELECT c1, max(c3) c3 FROM
-(
-SELECT pass_in_trip.ID_psg c1, Trip.ID_comp c2, count(*) c3 FROM pass_in_trip
-JOIN trip ON trip.trip_no=pass_in_trip.trip_no
-GROUP BY pass_in_trip.ID_psg, Trip.ID_comp
-) as t
-group by c1
-HAVING count(*)=1) as tt
-ON ID_psg=c1
-ORDER BY c3 DESC
-73
-Для каждой страны определяют выделения, в которых не участвовали корабли данной страны. Вывод: страна, отражение
-
-Решение:
-
-SELECT c.country, b.name
-FROM Classes c, Battles b
-EXCEPT
+```
+Задча 73
+```sql
+SELECT DISTINCT c.country, b.name
+FROM battles b, classes c
+MINUS
 SELECT c.country, o.battle
-FROM Outcomes o
-LEFT JOIN ships s ON o.ship=s.name
-LEFT JOIN Classes c ON o.ship=c.class OR s.class=c.class
-WHERE c.country is not null
+FROM outcomes o
+LEFT JOIN ships s ON s.name = o.ship
+LEFT JOIN classes c ON o.ship = c.class OR s.class = c.class
+WHERE c.country IS NOT NULL
 GROUP BY c.country, o.battle
-74
-Вывести все классы кораблей России (Россия). Если в базе данных нет классов кораблей России, получаются классы для всех доступных в БД стран. Вывод: страна, класс
-
-Решение:
-
+```
+Задча 74
+```sql
 SELECT c.country, c.class
 FROM classes c
 WHERE UPPER(c.country) = 'RUSSIA' AND EXISTS (
@@ -898,90 +720,61 @@ FROM classes c
 WHERE NOT EXISTS (SELECT c.country, c.class
 FROM classes c
 WHERE UPPER(c.country) = 'RUSSIA' )
-75
-Для тех производителей, у которых есть продукты с массой ценовой продукции, хотя бы в одной из таблиц Ноутбуки, ПК, принтеры найти максимальные цены на каждый из типов продукции. Вывод: производитель, максимальная цена на ноутбуки, максимальная цена на ПК, максимальная цена на принтеры. Для отсутствующих продуктов/цен использовать NULL.
-
-Решение:
-
-SELECT shipname,launched,batname
-FROM
-(SELECT s.name as shipname,launched,b.name as batname,
+```
+Задча 75
+```sql
+select shipname,launched,batname
+from
+(select s.name as shipname,launched,b.name as batname,
 row_number() over (partition by s.name order by "date") as num
-FROM ships s,battles b
-WHERE to_char("date",'yyyy')>=launched
-AND launched is not null)
-WHERE num = 1
-UNION
+from ships s,battles b
+where to_char("date",'yyyy')>=launched
+and launched is not null)
+where num = 1
+union
 (
-SELECT name,launched,(SELECT name FROM battles
-WHERE "date" = (SELECT MAX("date") FROM battles)) as batname
-FROM ships
-WHERE launched is null
+select name,launched,(select name from battles
+where "date" = (select max("date") from battles)) as batname
+from ships
+where launched is null
 )
-76
-Определить время, проведенное в полетах, для пассажиров, летающих всегда на разные места. Вывод: имя пассажира, время в окрестностях.
-
-Решение:
-
-with pf as(
-  SELECT id_psg, count(*) as place_count
-  FROM pass_in_trip
-  GROUP BY id_psg, place
-),
-pt as(
-  SELECT
-    pt.id_psg, pt.trip_no
-    , ps.name
-    , time_out, time_in
-    , CASE when time_out >= time_in
-        then time_in-time_out + 1440
-        else time_in-time_out
-    end as time
-  FROM pass_in_trip pt
-  JOIN passenger ps ON ps.id_psg=pt.id_psg
-  JOIN (
-    SELECT
-      datepart(hh, time_out)*60 + datepart(mi, time_out) time_out
-      , datepart(hh, time_in)*60 + datepart(mi, time_in) time_in
-      , trip_no
-    FROM trip t
-  ) as t ON t.trip_no=pt.trip_no
-  WHERE 1=ALL(select place_count FROM pf WHERE pf.id_psg=pt.id_psg)
+```
+Задча 76
+```sql
+select shipname,launched,batname
+from
+(select s.name as shipname,launched,b.name as batname,
+row_number() over (partition by s.name order by "date") as num
+from ships s,battles b
+where to_char("date",'yyyy')>=launched
+and launched is not null)
+where num = 1
+union
+(
+select name,launched,(select name from battles
+where "date" = (select max("date") from battles)) as batname
+from ships
+where launched is null
 )
-SELECT
-  name, sum(time) fly_time
-FROM pt
-GROUP BY id_psg, name
-77
-Определить дни, когда было выполнено большое количество рейсов из Ростова ("Ростов"). Вывод: число рейсов, дата.
-
-Решение:
-
-SELECT TOP 1 WITH TIES * FROM
-	(SELECT
-		COUNT(distinct(pt.trip_no)) qty, pt.date
-	FROM
-		Trip t, Pass_in_trip pt
-	WHERE t.trip_no=pt.trip_no AND t.town_from = 'Rostov'
-	GROUP BY pt.date) t1
-ORDER BY t1.qty DESC
-78
-[Для каждого определения первого и последнего дня месяца, в котором оно состоялось. Вывод: отражение, первый день месяца, последний день месяца.
-
-Замечание: указание даты без времени в формате "гггг-мм-дд".]( https://sql-ex.ru/learn_exercises.php?LN=78 )
-
-Решение:
-
-SELECT name, 
-REPLACE(CONVERT(CHAR(12), 
-DATEADD(m, DATEDIFF(m,0,date),0), 102),'.','-') AS first_day,
-             REPLACE(CONVERT(CHAR(12), DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,date)+1,0)), 102),'.','-') AS last_day
+```
+Задча 77
+```sql
+SELECT TOP 1 WITH TIES * FROM (
+SELECT COUNT (DISTINCT P.trip_no) count, date
+FROM Pass_in_trip P
+JOIN Trip T ON T.trip_no = P.trip_no AND town_from = 'Rostov'
+GROUP BY P.trip_no, date) X
+ORDER BY 1 DESC
+```
+Задча 78
+```sql
+SELECT name, REPLACE(CONVERT(CHAR(12), DATEADD(m, DATEDIFF(m,0,date),0), 102),'.','-') AS first_day,
+REPLACE(CONVERT(CHAR(12), DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,date)+1,0)), 102),'.','-') AS last_day
 FROM Battles
-79
-Определить количество пассажиров, которые имеют больше времени для полетов. Вывод: имя пассажира, общее время в окрестностях, осуществленное в полете
+```
 
-Решение:
-
+Задча 79
+```sql
 SELECT Passenger.name, A.minutes
 FROM (SELECT P.ID_psg,
       SUM((DATEDIFF(minute, time_out, time_in) + 1440)%1440) AS minutes,
@@ -992,24 +785,20 @@ FROM (SELECT P.ID_psg,
       ) AS A JOIN
  Passenger ON Passenger.ID_psg = A.ID_psg
 WHERE A.minutes = A.MaxMinutes
-80
-Найти производителей любой компьютерной техники, у которых нет моделей ПК, не представленных в таблице PC.
-
-Решение:
-
+```
+Задча 80
+```sql
 SELECT DISTINCT maker
 FROM product
 WHERE maker NOT IN (
-SELECT maker
-FROM product
-WHERE type='PC' AND model NOT IN (
-SELECT model
-FROM PC));
-81
-Из таблицы Outcome получить все записи за весь месяц (месяцы), с учетом того, какое значение расхода (out) было максимальным.
-
-Решение:
-
+     SELECT maker
+     FROM product
+     WHERE type='PC' AND model NOT IN (
+          SELECT model
+          FROM PC))
+```
+Задча 81
+```sql
 SELECT O.*
 FROM outcome O
 INNER JOIN
@@ -1019,11 +808,9 @@ FROM outcome
 GROUP BY YEAR(date), MONTH(date)
 ORDER BY ALL_TOTAL DESC
 ) R ON YEAR(O.date) = R.Y AND MONTH(O.date) = R.M
-82
-В наборе записей из таблицы PC, отсортированном по столбцу кода (по возрасту), найти среднее значение цены для каждой шестерки подряд идущих ПК. Вывод: значение кода, которое является первым в наборе из шести строк, среднее значение цены в наборе.
-
-Решение:
-
+```
+Задча 82
+```sql
 WITH CTE(code,price,number)
 AS
 (
@@ -1035,26 +822,22 @@ FROM CTE
 JOIN CTE C ON (C.number-CTE.number)<6 AND (C.number-CTE.number)> =0
 GROUP BY CTE.number,CTE.code
 HAVING COUNT(CTE.number)=6
-83
-Определить название всех кораблей из таблицы.
-
-Решение:
-
-SELECT name as NAME
+```
+Задча 83
+```sql
+SELECT name
 FROM Ships AS s JOIN Classes AS cl1 ON s.class = cl1.class
 WHERE
-CASE WHEN numGuns = 8 THEN 1 ELSE 0 END +
-CASE WHEN bore = 15 THEN 1 ELSE 0 END +
-CASE WHEN displacement = 32000 THEN 1 ELSE 0 END +
-CASE WHEN type = 'bb' THEN 1 ELSE 0 END +
-CASE WHEN launched = 1915 THEN 1 ELSE 0 END +
-CASE WHEN s.class = 'Kongo' THEN 1 ELSE 0 END +
-CASE WHEN country = 'USA' THEN 1 ELSE 0 END > = 4;
-84
-Для каждой компании подсчитывается количество перевезенных пассажиров (если они были в этом месяце) по декадам апреля 2003 года. Вывод: название компании, количество пассажиров за каждую декаду
-
-Решение:
-
+ CASE WHEN numGuns = 8 THEN 1 ELSE 0 END +
+ CASE WHEN bore = 15 THEN 1 ELSE 0 END +
+ CASE WHEN displacement = 32000 THEN 1 ELSE 0 END +
+ CASE WHEN type = 'bb' THEN 1 ELSE 0 END +
+ CASE WHEN launched = 1915 THEN 1 ELSE 0 END +
+ CASE WHEN s.class = 'Kongo' THEN 1 ELSE 0 END +
+ CASE WHEN country = 'USA' THEN 1 ELSE 0 END > = 4
+```
+Задча 84
+```sql
 SELECT C.name, A.N_1_10, A.N_11_21, A.N_21_30
 FROM (SELECT T.ID_comp,
        SUM(CASE WHEN DAY(P.date) < 11 THEN 1 ELSE 0 END) AS N_1_10,
@@ -1065,48 +848,27 @@ FROM (SELECT T.ID_comp,
       GROUP BY T.ID_comp
       ) AS A JOIN
  Company AS C ON A.ID_comp = C.ID_comp
-85
-Создатели, которые выпускают только принтеры или только PC. При этом искомые производители ПК должны выпускать не менее 3 моделей.
-
-Решение:
-
-SELECT maker FROM product
-GROUP BY maker
-HAVING count(distinct type) = 1 AND
-(min(type) = 'printer' OR
-(min(type) = 'pc' AND count(model) >= 3))
-86
-Для каждого производителя перечислить в алфавитном порядке с разделителем "/" все типы выпускаемой им продукции. Вывод: производитель, список видов продукции
-
-Решение:
-
+```
+Задча 85
+```sql
+select maker
+from product
+group by maker
+having count(distinct type) = 1 and
+       (min(type) = 'pc' or
+       (min(type) = 'printer' and count(model) > 2))
+```
+Задча 86
+```sql
 SELECT maker,
-CASE count(distinct type) when 2 then MIN(type) + '/' + MAX(type)
-when 1 then MAX(type)
-when 3 then 'Laptop/PC/Printer' END
+       CASE count(distinct type) when 2 then MIN(type) + '/' + MAX(type)
+                                 when 1 then MAX(type)
+                                 when 3 then 'Laptop/PC/Printer' END
 FROM Product
 GROUP BY maker
-87
-Считая, что пункт самого первого вылета пассажира является местом жительства, найти не москвичей, которые прилетели в более одного раза. Вывод: имя пассажира, количество рейсов в Москву
-
-Решение:
-
-SELECT DISTINCT name, COUNT(town_to) Qty
-FROM Trip tr JOIN Pass_in_trip pit ON tr.trip_no = pit.trip_no JOIN
-         Passenger psg ON pit.ID_psg = psg.ID_psg
-WHERE town_to = 'Moscow' AND pit.ID_psg NOT IN(SELECT DISTINCT ID_psg
-FROM Trip tr JOIN Pass_in_trip pit ON tr.trip_no = pit.trip_no
-WHERE date+time_out = (SELECT MIN (date+time_out)
-                       FROM Trip tr1 JOIN Pass_in_trip pit1 ON tr1.trip_no = pit1.trip_no
-                       WHERE pit.ID_psg = pit1.ID_psg)
-AND town_from = 'Moscow')
-GROUP BY pit.ID_psg, name
-HAVING COUNT(town_to) > 1
-88
-29)Среди тех, кто пользуется услугами только одной компании, определяют разные имена пассажиров, летающих чаще других. Вывести: имя пассажира, число полетов и название компании.
-
-Решение:
-
+```
+Задча 87
+```sql
 SELECT
  (SELECT name FROM Passenger WHERE ID_psg = B.ID_psg) AS name,
  B.trip_Qty,
@@ -1117,72 +879,75 @@ FROM (SELECT P.ID_psg, MIN(T.ID_comp) AS ID_comp, COUNT(*) AS trip_Qty, MAX(COUN
       GROUP BY P.ID_psg
       HAVING MIN(T.ID_comp) = MAX(T.ID_comp)
       ) AS B
-WHERE B.trip_Qty = B.Max_Qty;
-89
-Количество производителей, включающих в себя большее количество моделей в таблице Product, а также тех, в которых содержится всего меньше моделей. Вывод: производитель, число моделей
-
-Решение:
-
-SELECT Maker , count(distinct model) Qty FROM Product
-GROUP BY maker
-HAVING count(distinct model) > = ALL
-(SELECT count(distinct model) FROM Product
-GROUP BY maker)
+WHERE B.trip_Qty = B.Max_Qty
+```
+Задча 88
+```sql
+SELECT
+ (SELECT name FROM Passenger WHERE ID_psg = B.ID_psg) AS name,
+ B.trip_Qty,
+ (SELECT name FROM Company WHERE ID_comp = B.ID_comp) AS Company
+FROM (SELECT P.ID_psg, MIN(T.ID_comp) AS ID_comp, COUNT(*) AS trip_Qty, MAX(COUNT(*)) OVER() AS Max_Qty
+      FROM Pass_in_trip AS P JOIN
+       Trip AS T ON P.trip_no = T.trip_no
+      GROUP BY P.ID_psg
+      HAVING MIN(T.ID_comp) = MAX(T.ID_comp)
+      ) AS B
+WHERE B.trip_Qty = B.Max_Qty
+```
+Задча 89
+```sql
+select Maker , count(distinct model) Qty from Product
+group by maker
+having count(distinct model) > = ALL
+(select count(distinct model) from Product
+group by maker)
 or
 count(distinct model) <= ALL
-(SELECT count(distinct model) FROM Product
-GROUP BY maker)
-90
-Вывести все строки из таблицы Продукт, кроме трех строк с наименьшими номерами моделей и трех строк с огромными номерами моделей.
-
-Решение:
-
-SELECT t1.maker, t1.model, t1.type
-FROM(
-SELECT
+(select count(distinct model) from Product
+group by maker)
+```
+Задча 90
+```sql
+Select maker, model, type from
+(
+Select
 row_number() over (order by model) p1,
 row_number() over (order by model DESC) p2,
-*
-FROM product
+from Product
 ) t1
-WHERE p1 > 3 AND p2 > 3
-91
-C точностью до двух десятичных знаков определяется среднее количество красок на квадрате.
-
-Решение:
-
-SELECT count(maker)
-FROM product
-WHERE maker in
+where p1 > 3 and p2 > 3
+```
+Задча 91
+```sql
+select count(maker)
+from product
+where maker in
 (
-  SELECT maker FROM product
-  GROUP BY maker
-  HAVING count(model) = 1
+  Select maker from product
+  group by maker
+  having count(model) = 1
 )
-92
-Выбрать все белые квадраты, которые окрашивались только из баллончиков, пустых до настоящего времени. Вывести имя квадрата
-
-Решение:
-
+```
+Задча 92
+```sql
 SELECT Q_NAME
 FROM utQ
 WHERE Q_ID IN (SELECT DISTINCT B.B_Q_ID
-FROM (SELECT B_Q_ID
-FROM utB
-GROUP BY B_Q_ID
-HAVING SUM(B_VOL) = 765) AS B
-WHERE B.B_Q_ID NOT IN (SELECT B_Q_ID
-FROM utB
-WHERE B_V_ID IN (SELECT B_V_ID
-FROM utB
-GROUP BY B_V_ID
-HAVING SUM(B_VOL) < 255)))
-93
-Для каждой компании, перевозившей пассажиров, подсчитанное время, которое участвовало в полетах самолета с пассажирами. Вывод: название компании, время в окрестностях.
-
-Решение:
-
- select c.name, sum(vr.vr)
+                FROM (SELECT B_Q_ID
+                        FROM utB
+                        GROUP BY B_Q_ID
+                        HAVING SUM(B_VOL) = 765) AS B
+                WHERE B.B_Q_ID NOT IN (SELECT B_Q_ID
+                                        FROM utB
+                                        WHERE B_V_ID IN (SELECT B_V_ID
+                                                          FROM utB
+                                                          GROUP BY B_V_ID
+                                                          HAVING SUM(B_VOL) < 255)))
+```
+Задча 93
+```sql
+select c.name, sum(vr.vr)
 from
 (select distinct t.id_comp, pt.trip_no, pt.date,t.time_out,t.time_in,--pt.id_psg,
 case
@@ -1191,127 +956,116 @@ case
 end vr
 from pass_in_trip pt left join trip t on pt.trip_no=t.trip_no
 ) vr left join company c on vr.id_comp=c.id_comp
-group by c.name;
-94
-Для семи последующих дней, от оценочной даты, когда из Ростова было совершено максимальное число рейсов, определялось число рейсов из Ростова. Вывод: дата, количество рейсов
-
-Решение:
-
+group by c.name
+```
+Задча 94
+```sql
 SELECT DATEADD(day, S.Num, D.date) AS Dt,
-(SELECT COUNT(DISTINCT P.trip_no)
-FROM Pass_in_trip P
-JOIN Trip T
-ON P.trip_no = T.trip_no
-AND T.town_from = 'Rostov'
-AND P.date = DATEADD(day, S.Num, D.date)) AS Qty
+       (SELECT COUNT(DISTINCT P.trip_no)
+        FROM Pass_in_trip P
+               JOIN Trip T
+                 ON P.trip_no = T.trip_no
+                    AND T.town_from = 'Rostov'
+                    AND P.date = DATEADD(day, S.Num, D.date)) AS Qty
 FROM (SELECT (3 * ( x - 1 ) + y - 1) AS Num
-FROM (SELECT 1 AS x UNION ALL SELECT 2 UNION ALL SELECT 3) AS N1
-CROSS JOIN (SELECT 1 AS y UNION ALL SELECT 2 UNION ALL SELECT 3) AS N2
-WHERE (3 * ( x - 1 ) + y ) < 8) AS S,
-(SELECT MIN(A.date) AS date
-FROM (SELECT P.date,
-COUNT(DISTINCT P.trip_no) AS Qty,
-MAX(COUNT(DISTINCT P.trip_no)) OVER() AS M_Qty
-FROM Pass_in_trip AS P
-JOIN Trip AS T
-ON P.trip_no = T.trip_no
-AND T.town_from = 'Rostov'
-GROUP BY P.date) AS A
-WHERE A.Qty = A.M_Qty) AS D
-95
-[На основании информации из таблицы Pass_in_Trip, для каждой перевозки определяют:
-
-количество выполненных перелетов;
-многократно использованных типов самолетов;
-количество перевезенных различных пассажиров;
-общее число перевезенных пассажиров. Вывод: Название компании, 1), 2), 3), 4).]( https://sql-ex.ru/learn_exercises.php#answer_ref )
-Решение:
-
+        FROM (SELECT 1 AS x UNION ALL SELECT 2 UNION ALL SELECT 3) AS N1
+               CROSS JOIN (SELECT 1 AS y UNION ALL SELECT 2 UNION ALL SELECT 3) AS N2
+        WHERE (3 * ( x - 1 ) + y ) < 8) AS S,
+       (SELECT MIN(A.date) AS date
+        FROM (SELECT P.date,
+                       COUNT(DISTINCT P.trip_no) AS Qty,
+                       MAX(COUNT(DISTINCT P.trip_no)) OVER() AS M_Qty
+                FROM Pass_in_trip AS P
+                       JOIN Trip AS T
+                         ON P.trip_no = T.trip_no
+                            AND T.town_from = 'Rostov'
+                GROUP BY P.date) AS A
+        WHERE A.Qty = A.M_Qty) AS D
+```
+Задча 95
+```sql
 SELECT name,
-COUNT(DISTINCT CONVERT(CHAR(24),date)+CONVERT(CHAR(4),Trip.trip_no)),
-COUNT(DISTINCT plane),
-COUNT(DISTINCT ID_psg),
-COUNT(*)
+    COUNT(DISTINCT CONVERT(CHAR(24),date)+CONVERT(CHAR(4),Trip.trip_no)),
+    COUNT(DISTINCT plane),
+    COUNT(DISTINCT ID_psg),
+    COUNT(*)
 FROM Company,Pass_in_trip,Trip
 WHERE Company.ID_comp=Trip.ID_comp and Trip.trip_no=Pass_in_trip.trip_no
 GROUP BY Company.ID_comp,name
-96
-Вероятно, что баллончики с красной краской обнаружили более одного раза, выберите из них такие, окрашенные окрашенные квадраты, обнаружившие голубую деталь. Вывести название баллончика
-
-Решение:
-
+```
+Задча 96
+```sql
 with r as (select v.v_name,
-v.v_id,
-count(case when v_color = 'R' then 1 end) over(partition by v_id) cnt_r,
-count(case when v_color = 'B' then 1 end) over(partition by b_q_id) cnt_b
-FROM utV v join utB b on v.v_id = b.b_v_id)
-SELECT v_name
-FROM r
-WHERE cnt_r > 1 AND cnt_b > 0
-GROUP BY v_name
-97
-Отобрать из таблицы портативный компьютер те строки, для которых наиболее важны следующие условия: значения из столбцов скорость, оперативная память, цена, экран могут быть усилены таким образом, что каждое последующее значение будет превосходить предыдущее в 2 раза или более. Замечание: все самые высокие оценки ноутбуков больше нуля. Вывод: код, скорость, оперативная память, цена, экран.
+       v.v_id,
+       count(case when v_color = 'R' then 1 end) over(partition by v_id) cnt_r,
+       count(case when v_color = 'B' then 1 end) over(partition by b_q_id) cnt_b
+  from utV v join utB b on v.v_id = b.b_v_id)
+select v_name
+  from r
+where cnt_r > 1
+  and cnt_b > 0
+group by v_name
+```
 
-Решение:
-
-SELECT code, speed, ram, price, screen
-FROM laptop WHERE exists (
-SELECT 1 x
-FROM (
-SELECT v, rank()over(order by v) rn
-FROM( select cast(speed as float) sp, cast(ram as float) rm,
-CAST(price as float) pr, cast(screen as float) sc
-)l unpivot(v for c in (sp, rm, pr, sc))u
-)l pivot(max(v) for rn in ([1],[2],[3],[4]))p
-WHERE [1]*2 <= [2] and [2]*2 <= [3] AND [3]*2 <= [4]
+Задча 97
+```sql
+select code, speed, ram, price, screen
+from laptop where exists (
+  select 1 x
+  from (
+    select v, rank()over(order by v) rn
+    from ( select cast(speed as float) sp, cast(ram as float) rm,
+                  cast(price as float) pr, cast(screen as float) sc
+    )l unpivot(v for c in (sp, rm, pr, sc))u
+  )l pivot(max(v) for rn in ([1],[2],[3],[4]))p
+  where [1]*2 <= [2] and [2]*2 <= [3] and [3]*2 <= [4]
 )
-98
-Вывести список ПК, для каждого из которых получен результат побитовой операции ИЛИ, применяемой к двоичным представлениям скорости процессора и объема памяти, содержит последовательность из не менее четырех идущих последовательностей единичных битов. Вывод: код модели, скорость процессора, объем памяти.
-
-Решение:
-
+```
+Задча 98
+```sql
 with CTE AS
-(SELECT
+(select
 1 n, cast (0 as varchar(16)) bit_or,
 code, speed, ram FROM PC
 UNION ALL
-SELECT n*2,
+select n*2,
 cast (convert(bit,(speed|ram)&n) as varchar(1))+cast(bit_or as varchar(15))
 , code, speed, ram
-FROM CTE WHERE n < 65536
+from CTE where n < 65536
 )
-SELECT code, speed, ram FROM CTE
-WHERE n = 65536 AND CHARINDEX('1111', bit_or )> 0
-99
-[Рассматриваются только таблицы Income_o и Outcome_o. Известно, что прихода/расхода денег в воскресенье не бывает. Для каждой даты прихода денег на каждый из определенных счетов инкассации по рецепту:
-
-Дата инкассации допускается с датой прихода, если в таблице Outcome_o нет записи о выдаче денег в этом случае.
-В этом случае - первая возможная дата после прихода денег, которая не является воскресеньем и в Outcome_o не отмечена выдача денег сдатчикам вторсырья в этом случае. Вывод: пункт, дата прихода денег, дата инкассации.]( https://sql-ex.ru/learn_exercises.php?LN=99 )
-Решение:
-
-SELECT point,"date" income_date,"date" + nvl (min(case when diff > cnt then cnt else null end), max(cnt)+1
-) incass_date
-FROM (SELECT i.point, i."date", (trunc(o."date") - trunc(i."date")) diff,
-count(1) over (partition by i.point, i."date" order by o."date" rows between unbounded preceding and current row)-1 cnt
-FROM income_o i
-JOIN (select point, "date", 1 disabled FROM outcome_o
-UNION
-SELECT point, trunc("date"+7,'DAY'), 1 disabled FROM income_o) o
-ON i.point = o.point
-WHERE o."date" > = i."date")
-GROUP BY point, "date"
-100
-Написать запрос, который выводит все случаи прихода и расхода из таблиц Доход и результат в следующем виде: дата, порядковый номер записи за эту квитанцию, пункт прихода, сумма прихода, пункт расхода, сумма расхода. При этом все операции прихода по всем пунктам, совершенные в течение одного дня, упорядочены по коду полю, и так же все операции расхода упорядочены по коду полю. В случае, если операций прихода/расхода за один день было не равное количество, выведите NULL в соответствующих колонках на месте недостающих операций.
-
-Решение:
-
-SELECT DISTINCT A.date , A.R, B.point, B.inc, C.point, C.out
-FROM (Select distinct date, ROW_Number() OVER(PARTITION BY date ORDER BY code asc) as R FROM Income
-UNION
-SELECT DISTINCT date, ROW_Number() OVER(PARTITION BY date ORDER BY code asc) FROM Outcome) A
-LEFT JOIN (Select date, point, inc
-, ROW_Number() OVER(PARTITION BY date ORDER BY code asc) as RI FROM Income
-) B ON B.date=A.date and B.RI=A.R
-LEFT JOIN (Select date, point, out
-, ROW_Number() OVER(PARTITION BY date ORDER BY code asc) as RO FROM Outcome
-) C ON C.date=A.date AND C.RO=A.R;
+select code, speed, ram from CTE
+where n = 65536
+and CHARINDEX('1111', bit_or )> 0
+```
+Задча 99
+```sql
+select point,
+       "date" income_date,
+       "date" + nvl(
+                  min(case when diff > cnt then cnt else null end),
+                  max(cnt)+1
+                ) incass_date
+from (select i.point,
+             i."date",
+             (trunc(o."date") - trunc(i."date")) diff,
+             count(1) over (partition by i.point, i."date" order by o."date" rows between unbounded preceding and current row)-1 cnt
+      from income_o i
+               join (select point, "date", 1 disabled from outcome_o
+                     union
+                     select point, trunc("date"+7,'DAY'), 1 disabled from income_o) o
+                 on i.point = o.point
+      where o."date" > = i."date")
+group by point, "date"
+```
+Задча 100
+```sql
+Select distinct A.date , A.R, B.point, B.inc, C.point, C.out
+From (Select distinct date, ROW_Number() OVER(PARTITION BY date ORDER BY code asc) as R From Income
+Union Select distinct date, ROW_Number() OVER(PARTITION BY date ORDER BY code asc) From Outcome) A
+LEFT Join (Select date, point, inc
+                , ROW_Number() OVER(PARTITION BY date ORDER BY code asc) as RI FROM Income
+           ) B on B.date=A.date and B.RI=A.R
+LEFT Join (Select date, point, out
+                , ROW_Number() OVER(PARTITION BY date ORDER BY code asc) as RO FROM Outcome
+           ) C on C.date=A.date and C.RO=A.R
+```
