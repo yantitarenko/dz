@@ -1,34 +1,34 @@
 # dз
-Задача 1 Найдите номер модели, скорость и размер жесткого диска для всех ПК стоимостью менее 500 дол. Вывести: model, speed и hd Ссылка: https://sql-ex.ru/learn_exercises.php?LN=1
+№1 Найдите номер модели, скорость и размер жесткого диска для всех ПК стоимостью менее 500 дол. Вывести: model, speed и hd Ссылка: https://sql-ex.ru/learn_exercises.php?LN=1
 ```sql
 SELECT model, speed, hd FROM PC WHERE price < 500
 ```
-Задача 2 Найдите производителей принтеров. Вывести: maker Ссылка: https://sql-ex.ru/learn_exercises.php?LN=2 
+№2 Найдите производителей принтеров. Вывести: maker Ссылка: https://sql-ex.ru/learn_exercises.php?LN=2 
 ```sql
 SELECT maker FROM Product WHERE type = 'Printer' GROUP BY maker
 ```
-Задача 3 Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол. Ссылка: https://sql-ex.ru/learn_exercises.php?LN=3
+№3 Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол. Ссылка: https://sql-ex.ru/learn_exercises.php?LN=3
 ```sql
 SELECT model, ram, screen 
 FROM Laptop
 WHERE price>1000
 ```
-Задача 4 Найдите все записи таблицы Printer для цветных принтеров.
+№4 Найдите все записи таблицы Printer для цветных принтеров.
 ```sql 
 SELECT * FROM Printer WHERE color = 'y'
 ```
-Задача 5 Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.
+№5 Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.
 ```sql
 SELECT model, speed, hd FROM PC WHERE ( cd = '12x' OR cd = '24x' ) AND price < 600
 ```
-Задача 6 Для каждого производителя, выпускающего ПК-блокноты c объёмом жесткого диска не менее 10 Гбайт, найти скорости таких ПК-блокнотов. Вывод: производитель, скорость.
+№6 Для каждого производителя, выпускающего ПК-блокноты c объёмом жесткого диска не менее 10 Гбайт, найти скорости таких ПК-блокнотов. Вывод: производитель, скорость.
 ```sql
 SELECT DISTINCT maker, speed FROM laptop JOIN 
 (SELECT * FROM product WHERE type='laptop')
 this_table_1 ON laptop.model = this_table_1.model
 WHERE hd >= 10
 ```
-задача 7 Найдите номера моделей и цены всех имеющихся в продаже продуктов (любого типа) производителя B (латинская буква).
+№7 Найдите номера моделей и цены всех имеющихся в продаже продуктов (любого типа) производителя B (латинская буква).
 ```sql
 SELECT DISTINCT pc.model, price FROM pc JOIN product on pc.model = product.model WHERE maker = 'B'
 UNION 
@@ -36,70 +36,70 @@ SELECT DISTINCT laptop.model, price FROM laptop JOIN product on laptop.model = p
 UNION
 SELECT DISTINCT printer.model, price FROM printer JOIN product on printer.model = product.model WHERE maker = 'B'
 ```
-Задача 8 Найдите производителя, выпускающего ПК, но не ПК-блокноты.
+№8 Найдите производителя, выпускающего ПК, но не ПК-блокноты.
 ```sql
 SELECT maker FROM product WHERE type = 'pc'
 EXCEPT
 SELECT maker FROM product WHERE type = 'laptop'
 ```
-Задача 9 Найдите производителей ПК с процессором не менее 450 Мгц. Вывести: Maker
+№9 Найдите производителей ПК с процессором не менее 450 Мгц. Вывести: Maker
 ```sql
 SELECT DISTINCT product.maker FROM product JOIN pc on pc.model = product.model WHERE speed >= 450
 ```
-Задача 10 Найдите модели принтеров, имеющих самую высокую цену. Вывести: model, price
+№10 Найдите модели принтеров, имеющих самую высокую цену. Вывести: model, price
 ```sql
 SELECT DISTINCT model, price FROM printer
 WHERE price = (SELECT MAX(price) FROM printer)
 ```
-Задача 11 Найдите среднюю скорость ПК.
+№11 Найдите среднюю скорость ПК.
 ```sql
 SELECT AVG(speed) AS Avg_speed FROM pc
 ```
-Задача 12 Найдите среднюю скорость ПК-блокнотов, цена которых превышает 1000 дол.
+№12 Найдите среднюю скорость ПК-блокнотов, цена которых превышает 1000 дол.
 ```sql
 SELECT AVG(speed) AS Avg_speed FROM laptop WHERE price > 1000
 ```
-Задача 13 Найдите среднюю скорость ПК, выпущенных производителем A.
+№13 Найдите среднюю скорость ПК, выпущенных производителем A.
 ```sql
 SELECT DISTINCT AVG(pc.speed) AS Avg_speed FROM pc JOIN product on pc.model = product.model WHERE maker = 'A'
 ```
-Задача 14 Найдите класс, имя и страну для кораблей из таблицы Ships, имеющих не менее 10 орудий. 
+№14 Найдите класс, имя и страну для кораблей из таблицы Ships, имеющих не менее 10 орудий. 
 ```sql
 SELECT s.class, s.name, c.country
 FROM ships s
 JOIN classes c ON s.class = c.class
 WHERE c.numGuns >= 10
 ```
-Задача 15 Найдите размеры жестких дисков, совпадающих у двух и более PC. Вывести: HD 
+№15 Найдите размеры жестких дисков, совпадающих у двух и более PC. Вывести: HD 
 ```sql
 SELECT hd FROM pc GROUP BY (hd) HAVING COUNT(model) >= 2
 ```
-Задача 16 Найдите пары моделей PC, имеющих одинаковые скорость и RAM. В результате каждая пара указывается только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером, модель с меньшим номером, скорость и RAM.
+№16 Найдите пары моделей PC, имеющих одинаковые скорость и RAM. В результате каждая пара указывается только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером, модель с меньшим номером, скорость и RAM.
 ```sql
 SELECT DISTINCT p1.model, p2.model, p1.speed, p1.ram
 FROM pc p1, pc p2
 WHERE p1.speed = p2.speed AND p1.ram = p2.ram AND p1.model > p2.mode
 ```
-Задача 17 Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК. Вывести: type, model, speed
+№17 Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК. Вывести: type, model, speed
 ```sql
 SELECT DISTINCT product.type, laptop.model, laptop.speed
 FROM laptop, product
 WHERE speed < (SELECT MIN(speed) FROM pc)
 AND product.type ='Laptop'
 ```
-Задача 18 Найдите производителей самых дешевых цветных принтеров. Вывести: maker, price
+№18 Найдите производителей самых дешевых цветных принтеров. Вывести: maker, price
 ```sql
 SELECT DISTINCT maker, price FROM product JOIN printer ON printer.model = product.model WHERE price = (SELECT MIN(price) FROM printer
 WHERE color='y')
 AND color='y'
 ```
-Задача 19 Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов. Вывести: maker, средний размер экрана.
+№19 Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов. Вывести: maker, средний размер экрана.
 ```sql
 SELECT maker, AVG(screen)
 FROM product JOIN laptop ON product.model=laptop.model
 GROUP BY maker
 ```
-Задача 20 Найдите производителей, выпускающих по меньшей мере три различных модели ПК. Вывести: Maker, число моделей ПК.
+№20 Найдите производителей, выпускающих по меньшей мере три различных модели ПК. Вывести: Maker, число моделей ПК.
 ```sql
 SELECT maker as Maker, COUNT(model) as Count_Model
 FROM product
@@ -107,21 +107,21 @@ WHERE type='pc'
 GROUP BY maker
 HAVING COUNT(model)>=3
 ```
-Задча 21
+№21
 ```sql
 SELECT maker as Maker, MAX(price) as Max_price FROM product
 JOIN pc ON product.model = pc.model
 GROUP BY maker
 ```
 
-Задча 22
+№22
 ```sql
 SELECT speed as Speed, AVG(price) as Price
 FROM pc WHERE speed > 600
 GROUP BY speed
 ```
 
-Задча 23
+№23
 ```sql
 SELECT DISTINCT maker
 FROM product JOIN pc ON product.model=pc.model
@@ -130,7 +130,7 @@ WHERE speed>=750 AND maker IN
 FROM product JOIN laptop ON product.model=laptop.model
 WHERE speed>=750)
 ```
-Задча 24
+№24
 ```sql
 SELECT model 
 FROM (
@@ -151,7 +151,7 @@ FROM (
   ) table2
  )
 ```
-Задча 25
+№25
 ```sql
 SELECT DISTINCT maker FROM product
 WHERE model IN (
@@ -175,7 +175,7 @@ FROM product
 WHERE type='printer'
 )
 ```
-Задча 26
+№26
 ```sql
 SELECT AVG(price) AS AVG_price FROM (SELECT model, price FROM PC
 UNION ALL
@@ -184,7 +184,7 @@ INNER JOIN product
 ON price.model = product.model
 WHERE maker = 'A'
 ```
-Задча 27
+№27
 ```sql
 SELECT maker as Maker, AVG(hd) as AVG
 FROM product JOIN pc ON product.model=pc.model
@@ -195,14 +195,14 @@ WHERE type='printer'
 )
 GROUP BY maker
 ```
-Задча 28
+№28
 ```sql
 SELECT COUNT(maker) as Quantity FROM 
 (
 SELECT maker FROM product GROUP BY maker HAVING COUNT(*) = 1
 ) this_table
 ```
-Задча 29
+№29
 ```sql
 SELECT income_o.point, income_o.[date], inc, out FROM income_o LEFT JOIN outcome_o ON outcome_o.point = income_o.point
 AND outcome_o.[date]=income_o.[date]
@@ -211,20 +211,20 @@ SELECT outcome_o.point, outcome_o.[date], inc, out FROM income_o RIGHT JOIN outc
 outcome_o.point = income_o.point AND outcome_o.[date] = income_o.[date]
 ```
 
-Задча 30
+№30
 ```sql
 SELECT point, [date], SUM(outs), SUM(incs) FROM
 (SELECT point, [date], SUM(out) outs, null incs FROM outcome GROUP BY point, [date]
 UNION
 SELECT point, [date], null, SUM(inc) incs FROM income GROUP BY point, [date]) this_table GROUP BY point, [date]
 ```
-Задча 31
+№31
 ```sql
 SELECT class, country
 FROM classes
 WHERE bore>=16
 ```
-Задча 32
+№32
 ```sql
 SELECT country, cast(avg(bore*bore*bore/2) as numeric(38,2)) FROM
 (SELECT country, name, bore FROM ships sh JOIN classes c ON sh.class=c.class
@@ -232,18 +232,18 @@ union
 SELECT country, ship, bore FROM outcomes o JOIN classes c ON o.ship = c.class) t1
 GROUP BY country
 ```
-Задча 33
+№33
 ```sql
 SELECT ship
 FROM Outcomes
 WHERE battle = 'North Atlantic' AND result = 'sunk'
 ```
-Задча 34
+№34
 ```sql
 SELECT name FROM classes, ships WHERE launched >=1922 AND displacement>35000 AND type='bb' AND
 ships.class = classes.class
 ```
-Задча 35
+№35
 ```sql
 select model, type
 from Product pro
@@ -252,7 +252,7 @@ where
 or 
 (upper(model) not like '%[^A-Z]%')
 ```
-Задча 36
+№36
 ```sql
 select Distinct c.class 
 from Ships s
@@ -263,7 +263,7 @@ select ship
 from Outcomes o
 where o.ship in (select class from Classes c)
 ```
-Задча 37
+№37
 ```sql
 select c.class
 from Classes c inner join (
@@ -274,7 +274,7 @@ select o.ship, o.ship from Outcomes o
 group by c.class
 having count(t1.name) = 1
 ```
-Задча 38
+№38
 ```sql
 (src = https://sql-ex.ru/learn_exercises.php?LN=38)
 
@@ -282,7 +282,7 @@ select distinct country
 from Classes cl
 where type = 'bc' and country in (select country from Classes cl where type = 'bb')
 ```
-Задча 39
+№39
 ```sql
 select distinct o.ship
 from Outcomes o, Battles b
@@ -292,7 +292,7 @@ and exists (select bb.date from Battles bb, Outcomes oo
             where bb.name = oo.battle 
             and bb.date > b.date and o.ship = oo.ship)
 ```
-Задча 40
+№40
 ```sql
 (src = https://sql-ex.ru/learn_exercises.php?LN=40)
 
@@ -302,7 +302,7 @@ group by maker
 having count(distinct type) = 1 and count(model) > 1
 ```
 
-Задча 41
+№41
 ```sql
 select q1.maker, case when sum(q1.price) > 0 then max(q1.price) else Null end
 from ( 
@@ -317,7 +317,7 @@ from Product p inner join Laptop l on l.model = p.model
 )q1
 group by q1.maker
 ```
-Задча 42
+№42
 ```sql
 (src = https://sql-ex.ru/learn_exercises.php?LN=42)
 
@@ -325,13 +325,13 @@ SELECT ship, battle
 FROM Outcomes o
 WHERE result = 'sunk'
 ```
-Задча 43
+№43
 ```sql
 SELECT b.name
 FROM Battles b
 WHERE year(date) not in (select launched from Ships s where launched is not null)
 ```
-Задча 44
+№44
 ```sql
 SELECT *
 FROM
@@ -344,7 +344,7 @@ FROM outcomes
 ) a
 WHERE name LIKE 'R%'
 ```
-Задча 45
+№45
 ```sql
 select q1.name
 from (
@@ -353,7 +353,7 @@ union
 select ship as name from Outcomes where ship like '% % %'
 )q1
 ```
-Задча 46
+№46
 ```sql
 (src = https://sql-ex.ru/learn_exercises.php?LN=46)
 
@@ -362,7 +362,7 @@ from Classes c inner join Ships s on s.class = c.class
 right join Outcomes o on o.ship = s.name or o.ship = c.class
 where o.battle = 'Guadalcanal'
 ```
-Задча 47
+№47
 ```sql
 WITH out AS (SELECT *
 FROM outcomes JOIN (SELECT ships.name s_name, classes.class s_class, classes.country s_country
@@ -398,7 +398,7 @@ FROM out
 WHERE out.result='sunk'
 GROUP BY out.s_country) fin
 ```
-Задча 48
+№48
 ```sql
 SELECT class
 FROM classes t1 LEFT JOIN outcomes t2 ON t1.class=t2.ship WHERE result='sunk'
@@ -406,7 +406,7 @@ UNION
 SELECT class
 FROM ships LEFT JOIN outcomes ON ships.name=outcomes.ship WHERE result='sunk'
 ```
-Задча 49
+№49
 ```sql
 SELECT s.name 
 FROM ships s 
@@ -414,13 +414,13 @@ JOIN classes c ON s.name=c.class OR s.class = c.class WHERE c.bore = 16
 UNION
 SELECT o.ship FROM outcomes o JOIN classes c ON o.ship=c.class WHERE c.bore = 16
 ```
-Задча 50
+№50
 ```sql
 SELECT DISTINCT o.battle
 FROM ships s 
 JOIN outcomes o ON s.name = o.ship WHERE s.class = 'kongo'
 ```
-Задча 51
+№51
 ```sql
 SELECT NAME 
 FROM
@@ -444,19 +444,19 @@ FROM outcomes
 INNER JOIN classes ON outcomes.ship= classes.class) as f 
 GROUP BY displacement) as d2 ON d1.displacement=d2.displacement AND d1.numguns =d2.numguns
 ```
-Задча 52
+№52
 ```sql
 SELECT CAST(AVG(numguns*1.0) AS NUMERIC(6,2)) AS Avg_nmg 
 FROM classes 
 WHERE type = 'bb'
 ```
-Задча 53
+№53
 ```sql
 SELECT CAST(AVG(numguns*1.0) AS NUMERIC(6,2)) AS Avg_nmg 
 FROM classes 
 WHERE type = 'bb'
 ```
-Задча 54
+№54
 ```sql
 SELECT CAST(AVG(numguns*1.0) AS NUMERIC(6,2)) as AVG_nmg 
 FROM (SELECT ship, numguns, type FROM Outcomes 
@@ -467,14 +467,14 @@ FROM ships s
 JOIN classes c ON c.class = s.class) as x 
 WHERE type = 'bb'
 ```
-Задча 55
+№55
 ```sql
 SELECT c.class, min(s.launched) 
 FROM classes c 
 LEFT JOIN ships s ON c.class = s.class 
 GROUP BY c.class
 ```
-Задча 56
+№56
 ```sql
 SELECT c.class, COUNT(s.ship)
 FROM classes c
@@ -484,7 +484,7 @@ LEFT JOIN ships sh ON sh.name = o.ship
 WHERE o.result = 'sunk') AS s ON s.class = c.class OR s.ship = c.class
 GROUP BY c.class
 ```
-Задча 57
+№57
 ```sql
 SELECT class, COUNT(ship) count_sunked
 FROM (SELECT name, class FROM ships
@@ -494,7 +494,7 @@ LEFT JOIN outcomes ON name = ship AND result = 'sunk'
 GROUP BY class
 HAVING COUNT(ship) > 0 AND COUNT(*) > 2;
 ```
-Задча 58
+№58
 ```sql
 SELECT m, t,
 CAST(100.0*cc/cc1 AS NUMERIC(5,2))
@@ -513,7 +513,7 @@ JOIN (
 SELECT maker, count(*) cc1 FROM product GROUP BY maker
 ) tt2
 ```
-Задча 59
+№59
 ```sql
 SELECT c1, c2-
 (CASE
@@ -528,7 +528,7 @@ LEFT JOIN
 GROUP BY point) as t2
 ON c1=o1
 ```
-Задча 60
+№60
 ```sql
 SELECT c1, c2-
 (CASE
@@ -545,7 +545,7 @@ WHERE date<'2001-04-15'
 GROUP BY point) as t2
 ON c1=o1
 ```
-Задча 61
+№61
 ```sql
 SELECT sum(i) FROM
 (SELECT point, SUM(inc) as i FROM
@@ -558,14 +558,14 @@ outcome_o
 GROUP BY point
 ) as t
 ```
-Задча 62
+№62
 ```sql
 (SELECT sum(inc) FROM Income_o WHERE date<'2001-04-15')
 -
 (SELECT sum(out) FROM Outcome_o WHERE date<'2001-04-15')
 AS remain
 ```
-Задча 63
+№63
 ```sql
 SELECT name FROM Passenger
 WHERE ID_psg in
@@ -573,7 +573,7 @@ WHERE ID_psg in
 GROUP BY place, ID_psg
 HAVING count(*)>1)
 ```
-Задча 64
+№64
 ```sql
 SELECT i1.point, i1.date, 'inc', sum(inc) FROM Income,
 (SELECT point, date FROM Income
@@ -595,14 +595,14 @@ JOIN Outcome ON (Income.point=Outcome.point) AND
 WHERE o1.point=Outcome.point AND o1.date=Outcome.date
 GROUP BY o1.point, o1.date
 ```
-Задча 65
+№65
 ```sql
 Select row_number() over(order by maker, ans) c1, 
 case when maker = lag(maker) over(order by maker) then ''
 else maker end c2, type
 from (select distinct maker, type, case when type = 'pc' then 1 when type = 'Laptop' then 2 when type = 'printer' then 3 end ans from product)t1 
 ```
-Задча 66
+№66
 ```sql
 SELECT date, max(c) FROM
 (SELECT date,count(*) AS c FROM Trip,
@@ -625,14 +625,14 @@ UNION ALL
 SELECT '2003-04-07',0) AS t2
 GROUP BY date
 ```
-Задча 67
+№67
 ```sql
 select count(*) from
 (SELECT TOP 1 WITH TIES count(*) c, town_from, town_to from trip
 group by town_from, town_to
 order by c desc) as t
 ```
-Задча 68
+№68
 ```sql
 select count(*) from (
 select TOP 1 WITH TIES sum(c) cc, c1, c2 from (
@@ -648,7 +648,7 @@ group by c1,c2
 order by cc desc
 ) as tt
 ```
-Задча 69
+№69
 ```sql
 with t as
 (
@@ -665,7 +665,7 @@ SELECT t.point, TO_CHAR ( t."date", 'DD/MM/YYYY') AS day,
 from t
 group by t.point, t."date"
 ```
-Задча 70
+№70
 ```sql
 SELECT DISTINCT o.battle
 FROM outcomes o
@@ -675,7 +675,7 @@ WHERE c.country IS NOT NULL
 GROUP BY c.country, o.battle
 HAVING COUNT(o.ship) >= 3;
 ```
-Задча 71
+№71
 ```sql
 SELECT p.maker
 FROM product p
@@ -684,7 +684,7 @@ WHERE p.type = 'PC'
 GROUP BY p.maker
 HAVING COUNT(p.model) = COUNT(pc.model)
 ```
-Задча 72
+№72
 ```sql
 SELECT p.maker
 FROM product p
@@ -694,7 +694,7 @@ GROUP BY p.maker
 HAVING COUNT(p.model) = COUNT(pc.model)
 
 ```
-Задча 73
+№73
 ```sql
 SELECT DISTINCT c.country, b.name
 FROM battles b, classes c
@@ -706,7 +706,7 @@ LEFT JOIN classes c ON o.ship = c.class OR s.class = c.class
 WHERE c.country IS NOT NULL
 GROUP BY c.country, o.battle
 ```
-Задча 74
+№74
 ```sql
 SELECT c.country, c.class
 FROM classes c
@@ -721,7 +721,7 @@ WHERE NOT EXISTS (SELECT c.country, c.class
 FROM classes c
 WHERE UPPER(c.country) = 'RUSSIA' )
 ```
-Задча 75
+№75
 ```sql
 select shipname,launched,batname
 from
@@ -739,7 +739,7 @@ from ships
 where launched is null
 )
 ```
-Задча 76
+№76
 ```sql
 select shipname,launched,batname
 from
@@ -757,7 +757,7 @@ from ships
 where launched is null
 )
 ```
-Задча 77
+№77
 ```sql
 SELECT TOP 1 WITH TIES * FROM (
 SELECT COUNT (DISTINCT P.trip_no) count, date
@@ -766,14 +766,14 @@ JOIN Trip T ON T.trip_no = P.trip_no AND town_from = 'Rostov'
 GROUP BY P.trip_no, date) X
 ORDER BY 1 DESC
 ```
-Задча 78
+№78
 ```sql
 SELECT name, REPLACE(CONVERT(CHAR(12), DATEADD(m, DATEDIFF(m,0,date),0), 102),'.','-') AS first_day,
 REPLACE(CONVERT(CHAR(12), DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,date)+1,0)), 102),'.','-') AS last_day
 FROM Battles
 ```
 
-Задча 79
+№79
 ```sql
 SELECT Passenger.name, A.minutes
 FROM (SELECT P.ID_psg,
@@ -786,7 +786,7 @@ FROM (SELECT P.ID_psg,
  Passenger ON Passenger.ID_psg = A.ID_psg
 WHERE A.minutes = A.MaxMinutes
 ```
-Задча 80
+№80
 ```sql
 SELECT DISTINCT maker
 FROM product
@@ -797,7 +797,7 @@ WHERE maker NOT IN (
           SELECT model
           FROM PC))
 ```
-Задча 81
+№81
 ```sql
 SELECT O.*
 FROM outcome O
@@ -809,7 +809,7 @@ GROUP BY YEAR(date), MONTH(date)
 ORDER BY ALL_TOTAL DESC
 ) R ON YEAR(O.date) = R.Y AND MONTH(O.date) = R.M
 ```
-Задча 82
+№82
 ```sql
 WITH CTE(code,price,number)
 AS
@@ -823,7 +823,7 @@ JOIN CTE C ON (C.number-CTE.number)<6 AND (C.number-CTE.number)> =0
 GROUP BY CTE.number,CTE.code
 HAVING COUNT(CTE.number)=6
 ```
-Задча 83
+№83
 ```sql
 SELECT name
 FROM Ships AS s JOIN Classes AS cl1 ON s.class = cl1.class
@@ -836,7 +836,7 @@ WHERE
  CASE WHEN s.class = 'Kongo' THEN 1 ELSE 0 END +
  CASE WHEN country = 'USA' THEN 1 ELSE 0 END > = 4
 ```
-Задча 84
+№84
 ```sql
 SELECT C.name, A.N_1_10, A.N_11_21, A.N_21_30
 FROM (SELECT T.ID_comp,
@@ -849,7 +849,7 @@ FROM (SELECT T.ID_comp,
       ) AS A JOIN
  Company AS C ON A.ID_comp = C.ID_comp
 ```
-Задча 85
+№85
 ```sql
 select maker
 from product
@@ -858,7 +858,7 @@ having count(distinct type) = 1 and
        (min(type) = 'pc' or
        (min(type) = 'printer' and count(model) > 2))
 ```
-Задча 86
+№86
 ```sql
 SELECT maker,
        CASE count(distinct type) when 2 then MIN(type) + '/' + MAX(type)
@@ -867,7 +867,7 @@ SELECT maker,
 FROM Product
 GROUP BY maker
 ```
-Задча 87
+№87
 ```sql
 SELECT
  (SELECT name FROM Passenger WHERE ID_psg = B.ID_psg) AS name,
@@ -881,7 +881,7 @@ FROM (SELECT P.ID_psg, MIN(T.ID_comp) AS ID_comp, COUNT(*) AS trip_Qty, MAX(COUN
       ) AS B
 WHERE B.trip_Qty = B.Max_Qty
 ```
-Задча 88
+№88
 ```sql
 SELECT
  (SELECT name FROM Passenger WHERE ID_psg = B.ID_psg) AS name,
@@ -895,7 +895,7 @@ FROM (SELECT P.ID_psg, MIN(T.ID_comp) AS ID_comp, COUNT(*) AS trip_Qty, MAX(COUN
       ) AS B
 WHERE B.trip_Qty = B.Max_Qty
 ```
-Задча 89
+№89
 ```sql
 select Maker , count(distinct model) Qty from Product
 group by maker
@@ -907,7 +907,7 @@ count(distinct model) <= ALL
 (select count(distinct model) from Product
 group by maker)
 ```
-Задча 90
+№90
 ```sql
 Select maker, model, type from
 (
@@ -918,7 +918,7 @@ from Product
 ) t1
 where p1 > 3 and p2 > 3
 ```
-Задча 91
+№91
 ```sql
 select count(maker)
 from product
@@ -929,7 +929,7 @@ where maker in
   having count(model) = 1
 )
 ```
-Задча 92
+№92
 ```sql
 SELECT Q_NAME
 FROM utQ
@@ -945,7 +945,7 @@ WHERE Q_ID IN (SELECT DISTINCT B.B_Q_ID
                                                           GROUP BY B_V_ID
                                                           HAVING SUM(B_VOL) < 255)))
 ```
-Задча 93
+№93
 ```sql
 select c.name, sum(vr.vr)
 from
@@ -958,7 +958,7 @@ from pass_in_trip pt left join trip t on pt.trip_no=t.trip_no
 ) vr left join company c on vr.id_comp=c.id_comp
 group by c.name
 ```
-Задча 94
+№94
 ```sql
 SELECT DATEADD(day, S.Num, D.date) AS Dt,
        (SELECT COUNT(DISTINCT P.trip_no)
@@ -982,7 +982,7 @@ FROM (SELECT (3 * ( x - 1 ) + y - 1) AS Num
                 GROUP BY P.date) AS A
         WHERE A.Qty = A.M_Qty) AS D
 ```
-Задча 95
+№95
 ```sql
 SELECT name,
     COUNT(DISTINCT CONVERT(CHAR(24),date)+CONVERT(CHAR(4),Trip.trip_no)),
@@ -993,7 +993,7 @@ FROM Company,Pass_in_trip,Trip
 WHERE Company.ID_comp=Trip.ID_comp and Trip.trip_no=Pass_in_trip.trip_no
 GROUP BY Company.ID_comp,name
 ```
-Задча 96
+№ 96
 ```sql
 with r as (select v.v_name,
        v.v_id,
@@ -1007,7 +1007,7 @@ where cnt_r > 1
 group by v_name
 ```
 
-Задча 97
+№97
 ```sql
 select code, speed, ram, price, screen
 from laptop where exists (
@@ -1021,7 +1021,7 @@ from laptop where exists (
   where [1]*2 <= [2] and [2]*2 <= [3] and [3]*2 <= [4]
 )
 ```
-Задча 98
+№98
 ```sql
 with CTE AS
 (select
@@ -1037,7 +1037,7 @@ select code, speed, ram from CTE
 where n = 65536
 and CHARINDEX('1111', bit_or )> 0
 ```
-Задча 99
+№99
 ```sql
 select point,
        "date" income_date,
@@ -1057,7 +1057,7 @@ from (select i.point,
       where o."date" > = i."date")
 group by point, "date"
 ```
-Задча 100
+№100
 ```sql
 Select distinct A.date , A.R, B.point, B.inc, C.point, C.out
 From (Select distinct date, ROW_Number() OVER(PARTITION BY date ORDER BY code asc) as R From Income
